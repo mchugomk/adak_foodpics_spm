@@ -18,11 +18,11 @@ end
 
 %% Study specific variables to specify data folders and SPM settings
 task_id='foodpics';
-study_dir='/home/data/images/adak';								        % main study directory
-onset_dir=fullfile(study_dir, 'code', ['adak_' task_id '_spm']);        % directory with task onsets - same for all subjects in this study
-bids_dir=fullfile(study_dir,'data','bids_data');					    % bids data directory
-preproc_dir=fullfile(bids_dir, 'derivatives','fmriprep_3mm');		    % directory with preprocessed data
-output_dir=fullfile(bids_dir,'derivatives',['adak_' task_id '_spm']);	% analysis output directory for fmriprep 3mm data
+study_dir='/home/data/images/adak';								                    % main study directory
+onset_dir=fullfile(study_dir, 'code', ['adak_' task_id '_spm'], 'matlab', 'src');   % directory with task onsets - same for all subjects in this study
+bids_dir=fullfile(study_dir,'data','bids_data');					                % bids data directory
+preproc_dir=fullfile(bids_dir, 'derivatives','fmriprep_3mm');		                % directory with preprocessed data
+output_dir=fullfile(bids_dir,'derivatives',['adak_' task_id '_spm']);	            % analysis output directory for fmriprep 3mm data
 
 n_vols='172';                           % each run should contain 172 volumes
 tr='2';                                 % repetition time = 2s
