@@ -7,6 +7,10 @@ function foodpics_firstlevel_any_session(subject_id, session_id, run_list)
 %   to process both runs: [1 2]
 %   to process only run 1: [1]
 %   to process only run 2: [2]
+%
+% This is a template pipeline to analyze the ADAK foodpics data
+% that can be cloned into other repos for custom analyses.
+% - Saves output in folder 'adak_foodpics_spm'
 
 if nargin ~= 3 
     error('Must specify subject_id, session_id and run_list');
@@ -14,10 +18,11 @@ end
 
 %% Study specific variables to specify data folders and SPM settings
 task_id='foodpics';
-study_dir='/home/data/images/adak';								    % main study directory
-bids_dir=fullfile(study_dir,'data','bids_data');					% bids data directory
-preproc_dir=fullfile(bids_dir, 'derivatives','fmriprep_3mm');		% directory with preprocessed data
-output_dir=fullfile(bids_dir,'derivatives',['adak_' task_id '_spm']);	    % analysis output directory for fmriprep 3mm data
+study_dir='/home/data/images/adak';								        % main study directory
+onset_dir=fullfile(study_dir, 'code', ['adak_' task_id '_spm']);        % directory with task onsets - same for all subjects in this study
+bids_dir=fullfile(study_dir,'data','bids_data');					    % bids data directory
+preproc_dir=fullfile(bids_dir, 'derivatives','fmriprep_3mm');		    % directory with preprocessed data
+output_dir=fullfile(bids_dir,'derivatives',['adak_' task_id '_spm']);	% analysis output directory for fmriprep 3mm data
 
 n_vols='172';                           % each run should contain 172 volumes
 tr='2';                                 % repetition time = 2s
@@ -45,7 +50,7 @@ for r = 1:length(run_list)
     % Set file paths
     run_number = num2str(run_list(r));
 
-    multi_conds=fullfile(study_dir, 'code', ['adak_' task_id '_test'],'matlab','src',['onsets_' task_id '_run-0' run_number '.mat']);	% onsets for foodpics run
+    multi_conds=fullfile(onset_dir,['onsets_' task_id '_run-0' run_number '.mat']);	% onsets for foodpics run
 
     fmri=fullfile(preproc_dir,subject_id,session_id,'func', [subject_id '_' session_id '_' 'task-' task_id '_' 'run-0' run_number '_' 'space-' output_space '_' 'desc-preproc_bold.nii.gz']);
     confounds=fullfile(preproc_dir,subject_id,session_id,'func', [subject_id '_' session_id '_' 'task-' task_id '_' 'run-0' run_number '_' 'desc-confounds_timeseries.tsv']);    
