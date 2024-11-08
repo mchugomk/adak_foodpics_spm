@@ -34,7 +34,7 @@ disp(['output_space: ' output_space]);
 out_dir=fullfile(output_dir, subject_id, session_id, [task_id '_firstlevel']);
 if not(isfolder(out_dir))
     [status, msg] = mkdir(out_dir);
-    if status == 1 
+    if status == 0 
         error(msg);
     end
 end
@@ -52,15 +52,15 @@ for r = 1:length(run_list)
 
     % Copy input files to out_dir
     [status, msg] = copyfile(fmri, out_dir);
-    if status == 1 
+    if status == 0 
         error(msg);
     end
     [status, msg] = copyfile(confounds, out_dir);
-    if status == 1 
+    if status == 0 
         error(msg);
     end
     [status, msg] = copyfile(multi_conds, out_dir);
-    if status == 1 
+    if status == 0 
         error(msg);
     end
 
